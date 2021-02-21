@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title> Mail </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        .inp-rnd {
+            border-radius: 10px;
+            border-color: rgb(172, 168, 168);
+        }
+        .btn1 {
+            background-color: rgb(177, 230, 230)
+        }
+        
+    </style>
+</head>
+
+<body style="background-color:rgba(172, 204, 221, 0.733);">
+
+    <div></div>
+    <div style="display: flex;">
+        <div class='col-3' style="background-color: coral;">
+            <img id='img' src='mail2.png' width='45px' style="padding-bottom: 10px;">
+            <span style="color: rgb(27, 60, 121); font-size: 40px; ">SMail</span>
+        </div>
+        <div  class='col-9' style="background-color: white; display: flex; align-items: center; font-size: 22px;">
+            <strong>New Message</strong>
+        </div>
+    </div>
+
+    <div style="display: flex;">
+        <div class='col-3' style="display: flex; flex-direction: column;">
+            <button class="btn1" style="height: 50px; width: 70%; margin-left: 5px; margin-top: 16px; font-size: 20px;
+            border-radius: 12px ; margin-bottom: 10px;">+ Compose</button>
+
+            <div>
+                <img id='img' src='rt-arw2.png' width='26px' style="margin: 10px 12px;"  >
+                <span style="font-size: 25px; padding-top:3px ;"><a href='index.html'>Inbox</a></span>
+            </div>
+            <div>
+                <img id='img' src='rt-arw2.png' width='26px'  style="margin: 10px 12px;">
+                <span style="font-size: 25px; padding-top:3px"><a href='drafts.html'>Drafts</a></span>
+            </div>
+            <div>
+                <img id='img' src='rt-arw2.png' width='26px'  style="margin: 10px 12px;">
+                <span style="font-size: 25px; padding-top:3px"><a href='sent.html'>Sent</a></span>                
+            </div>
+
+        </div>
+
+        <div class='col-9' style="display: flex; flex-direction: column; justify-content: space-between; background-color: white;" >
+            <div  style="background-color: white;display: flex; width: 100%;">
+                <div id='d1' class="inp-rnd" style="width: 95%; height: 61px; border: 1px solid black;"></div>
+            </div>
+            <div  style=" margin-top: 20px;">
+                <div id='d2' class="inp-rnd" style="width: 95%; height: 61px; border: 1px solid black;"></div>
+            </div>
+            <div  style=" margin-top: 20px;">
+                <div id='d3' class="inp-rnd" style="width: 95%; height: 211px; border: 1px solid black;"></div>
+            </div>
+            <div style="margin-top: 15px;">
+                <button onclick="p1()" style="margin-right: 20px; padding: 2px 15px ;">Save</button>
+                <button onclick="p2()" style="margin-right: 20px; padding: 2px 15px ;">Send</button>
+            </div>            
+        </div>
+
+    </div>
+
+    
+    <script>
+
+        emlid=localStorage["emailid"]
+        url='https://60163ce855dfbd00174cab5a.mockapi.io/Mail/'+emlid
+
+        fetch(url)
+        .then((resp) => resp.json())
+        .then((data) => {
+            disp(data)
+        })
+
+        function disp(data) {
+            len=data.length
+            d1=document.getElementById('d1')
+            d2=document.getElementById('d2')
+            d3=document.getElementById('d3')
+
+            for (i=0;i<len;i++) {
+                if (emlid===data[i].id) {
+                    let emailid=data[i].EmailID
+                    let sub=data[i].Subject
+                    let body=data[i].Body
+                    d1.innerHTML=emailid
+                    d2.innerHTML=sub
+                    d3.innerHTML=body
+                    break
+                }
+            }
+        }
+
+    </script>
+
+</body>
+</html>
